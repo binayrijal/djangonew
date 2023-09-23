@@ -3,13 +3,41 @@
 
 <div class="row">
     <div class="col-sm-4">
-        <h2 class="text-align-center">Add information of user</h2>
+        <h2 class="text-align-center alert alert-info">Add information of user</h2>
         <form action="" method="POST">
         {%csrf_token%}
         {{fobj.as_p}}
         <input type="submit" class="btn btn-success" value="add">
         </form>
            
+    </div>
+    <div class="col-sm-8">
+        <h2 class="text-center alert alert-info">Show data here</h2>
+        {%if regs %}
+        <table class="table table-hover">
+            
+            <thead>
+                <tr>
+                    <th class="col">Id</th>
+                    <th class="col">Name</th>
+                    <th class="col">Email</th>
+                    <th class="col">Password</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for reg in regs%}
+                <tr>
+                    <th scope="row">{{reg.Id}}</th>
+                    <td><{{reg.name}}/td>
+                    <td>{{reg.email}}</td>
+                    <td>{{reg.password}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        {% else %}
+        <h3>no record available</h3>
+        {% endif %}
     </div>
 </div>
 </form>

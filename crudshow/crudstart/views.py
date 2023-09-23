@@ -11,6 +11,6 @@ def addshow(request):
             fo=UserRegistration()
     else:
         fo=UserRegistration()
-        userdata=User.objects.all()
+    regr=User.objects.all()
         
-    return render(request,'addandshow.html',{'fobj':fo})
+    return render(request,'addandshow.html', {'fobj':fo,'regs':regr} )
