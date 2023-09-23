@@ -1,10 +1,17 @@
 {%extends 'base.html'%}
 {% block content %}
-<form action="" method="POST">
- {%csrf_token%}
- {{fobj.as_p}}
- <input type="submit" class="btn btn-success" value="add">
 
+<div class="row">
+    <div class="col-sm-4">
+        <h2 class="text-align-center">Add information of user</h2>
+        <form action="" method="POST">
+        {%csrf_token%}
+        {{fobj.as_p}}
+        <input type="submit" class="btn btn-success" value="add">
+        </form>
+           
+    </div>
+</div>
 </form>
 
 {%endblock content%}
