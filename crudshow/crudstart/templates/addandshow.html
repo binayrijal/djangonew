@@ -1,6 +1,10 @@
 {%extends 'base.html'%}
-{% block content%}
+{% block content %}
+<form action="" method="POST">
+ {%csrf_token%}
+ {{fobj.as_p}}
+ <input type="submit" class="btn btn-success" value="add">
 
-<h1>this is begining of the show</h1>
+</form>
 
 {%endblock content%}
