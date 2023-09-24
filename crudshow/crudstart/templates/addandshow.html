@@ -31,7 +31,7 @@
                     <td>{{reg.name}}</td>
                     <td>{{reg.email}}</td>
                     <td>{{reg.password}}</td>
-                    <td><input type="submit" name="submit" class="btn btn-info" value="edit"/></td>
+                    <td><a href="{% url 'updatedata' reg.id%}" class="btn btn-warning btn-sm">edit</a></td>
                     <td>
                         <form action="{% url 'deletedata' reg.id %}" method="post" class="d-line">{%csrf_token%}
                           <input type="submit" name="submit" class="btn btn-danger" value="delete"/>
