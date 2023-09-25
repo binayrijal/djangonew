@@ -12,6 +12,8 @@ def addshow(request):
             fo=UserRegistration()
     else:
         fo=UserRegistration()
+    
+    
     regr=User.objects.all()
         
     return render(request,'addandshow.html', {'fobj':fo,'regs':regr} )
@@ -21,14 +23,22 @@ def delete_data(request,id):
         obj=User.objects.get(pk=id)
         obj.delete()
     return HttpResponseRedirect('/')
+
+
 def update_data(request,id):
    
     if request.method=="POST":
         obj=User.objects.get(pk=id)
         fm=UserRegistration(request.POST,instance=obj)
-        if fm.is_valid():
+        
+        if not (obj.email==User.email and obj.name==User.name):
+         if fm.is_valid():
             fm.save()
     else:
         obj=User.objects.get(pk=id)
         fm=UserRegistration(instance=obj)
     return render(request,'updata.html',{'fmdata':fm})
+
+def uddate_data(request):
+
+    return render(request,'updata.html')
