@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-sm-4">
         <h2 class="text-align-center alert alert-info">Add information of user</h2>
-        <form action="" method="POST">
+        <form action="{%url 'addshow'%}" method="POST">
         {%csrf_token%}
         {{fobj.as_p}}
         <input type="submit" class="btn btn-success" value="Add">

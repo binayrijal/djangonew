@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .form import UserRegistration
-from.models import User
+from.models import User,Teacher
 from django.http import HttpResponseRedirect,HttpResponse
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 def addshow(request):
@@ -39,4 +40,23 @@ def update_data(request,id):
     
     return render(request,'updata.html',{'fmdata':fm})
 
+def form_show(request):
+    if request.method=="POST":
+        email=request.POST.get('email')
+        password=request.POST.get('password')
+        check=request.POST.getlist('checkbox')
+        if "on" in check:
+            check=True
+        else:
+            check=False
+        exist_teacher= Teacher.objects.filter(email=email).first()
+        if not exist_teacher:
+            hash_password=make_password(password) 
+            new_teacher=Teacher.objects.create(email=email,password=hash_password,checkbox=check)
+            new_teacher.save()
+            return redirect('addshow')
+        return render(request,'form.html')
+    return render(request,'form.html',{'message':'this is unaccessible through link'})
+    
 
+        

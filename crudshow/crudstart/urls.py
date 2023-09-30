@@ -1,10 +1,10 @@
 from django.urls import path,include
-from . import views
+from .views import form_show,delete_data,addshow,update_data
 
 
 urlpatterns=[
-  path('',views.addshow,name="addshow"),
-  path('delete/<int:id>',views.delete_data,name="deletedata"),
-  path('<int:id>/',views.update_data,name="updatedata"),
-  
+  path('view/',addshow,name="addshow"),
+  path('delete/<int:id>',delete_data,name="deletedata"),
+  path('<int:id>/',update_data,name="updatedata"),
+  path('',form_show,name="viewshow"),
  ]
