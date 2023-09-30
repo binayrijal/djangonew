@@ -3,6 +3,7 @@ from .form import UserRegistration
 from.models import User,Teacher
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth.hashers import make_password
+from rest_framework.authentication import TokenAuthentication
 
 # Create your views here.
 def addshow(request):
@@ -54,10 +55,12 @@ def form_show(request):
             hash_password=make_password(password) 
             new_teacher=Teacher.objects.create(email=email,password=hash_password,checkbox=check)
             new_teacher.save()
-            return redirect('addshow')
+            return redirect(request,'token.html',{'new':new_teacher})
         else:
            return render(request,'form.html',{'message':'username is taken'})
-    return render(request,'form.html',{'message':'this in not allowed'})
+    return render(request,'form.html',{'message':'this is not allowed'})
     
-
-        
+def gettoken(request):
+ if request.method=="POST":
+     pass
+    
