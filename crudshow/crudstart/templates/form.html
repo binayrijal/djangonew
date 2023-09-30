@@ -1,5 +1,10 @@
 {%extends 'base.html'%}
 {%block content%}
+<div>
+    {%for messages in message%}
+    {{message}}
+    {%endfor%}
+</div>
 <form action="" method="post">
     {%csrf_token%}
     <div class="mb-3">

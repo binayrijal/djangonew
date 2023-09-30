@@ -55,8 +55,9 @@ def form_show(request):
             new_teacher=Teacher.objects.create(email=email,password=hash_password,checkbox=check)
             new_teacher.save()
             return redirect('addshow')
-        return render(request,'form.html')
-    return render(request,'form.html',{'message':'this is unaccessible through link'})
+        else:
+           return render(request,'form.html',{'message':'username is taken'})
+    return render(request,'form.html',{'message':'this in not allowed'})
     
 
         
