@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from .form import UserRegistration
 from.models import User
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 
 # Create your views here.
 def addshow(request):
-    if request.method=="POST":
+    if request.method=='POST':
         fo=UserRegistration(request.POST)
         if fo.is_valid():
             fo.save()
@@ -19,7 +19,7 @@ def addshow(request):
     return render(request,'addandshow.html', {'fobj':fo,'regs':regr} )
 
 def delete_data(request,id):
-    if request.method=="POST":
+    if request.method=='POST':
         obj=User.objects.get(pk=id)
         obj.delete()
     return HttpResponseRedirect('/')
@@ -27,18 +27,16 @@ def delete_data(request,id):
 
 def update_data(request,id):
    
-    if request.method=="POST":
+    if request.method=='POST':
         obj=User.objects.get(pk=id)
         fm=UserRegistration(request.POST,instance=obj)
-        
-        if not (obj.email==User.email and obj.name==User.name):
-         if fm.is_valid():
-            fm.save()
+        if fm.is_valid():
+          fm.save()
+          return render(request,'addandshow.html')
     else:
         obj=User.objects.get(pk=id)
         fm=UserRegistration(instance=obj)
+    
     return render(request,'updata.html',{'fmdata':fm})
 
-def uddate_data(request):
 
-    return render(request,'updata.html')
