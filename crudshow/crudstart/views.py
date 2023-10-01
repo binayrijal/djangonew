@@ -4,6 +4,7 @@ from.models import User,Teacher
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth.hashers import make_password
 from rest_framework.authentication import TokenAuthentication
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def addshow(request):
@@ -24,22 +25,25 @@ def delete_data(request,id):
     if request.method=='POST':
         obj=User.objects.get(pk=id)
         obj.delete()
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/view')
 
 
-def update_data(request,id):
+from django.shortcuts import get_object_or_404
+
+def update_data(request, id):
+    obj = get_object_or_404(User, pk=id)
    
-    if request.method=='POST':
-        obj=User.objects.get(pk=id)
-        fm=UserRegistration(request.POST,instance=obj)
+    if request.method == 'POST':
+       
+        fm = UserRegistration(request.POST,instance=obj)
         if fm.is_valid():
-          fm.save()
-          return render(request,'addandshow.html')
+            fm.save()
+            return render(request, 'addandshow.html')
     else:
-        obj=User.objects.get(pk=id)
-        fm=UserRegistration(instance=obj)
+       
+        fm = UserRegistration(instance=obj)
     
-    return render(request,'updata.html',{'fmdata':fm})
+    return render(request, 'updata.html', {'fmdata': fm})
 
 def form_show(request):
     if request.method=="POST":
@@ -55,12 +59,9 @@ def form_show(request):
             hash_password=make_password(password) 
             new_teacher=Teacher.objects.create(email=email,password=hash_password,checkbox=check)
             new_teacher.save()
-            return redirect(request,'token.html',{'new':new_teacher})
+            return redirect('gettoken',{'new':new_teacher})
         else:
-           return render(request,'form.html',{'message':'username is taken'})
-    return render(request,'form.html',{'message':'this is not allowed'})
-    
-def gettoken(request):
- if request.method=="POST":
-     pass
+           message:"this is alredy exist"
+           return render(request,'form.html',{'message':message})
+    return render(request,'form.html',{'message':''})
     

@@ -14,4 +14,4 @@ class UserRegistration(forms.ModelForm):
         'email': forms.TextInput(attrs= {'class':'form-control'}),
         'password': forms.PasswordInput(render_value=True,attrs= {'class':'form-control'}),
         
-         }
+        }
