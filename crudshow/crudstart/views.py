@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect,HttpResponse,JsonResponse
 from django.contrib.auth.hashers import make_password
 from rest_framework.authentication import TokenAuthentication
 from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST
 
 
 
@@ -50,19 +51,18 @@ def form_show(request):
             hash_password=make_password(password) 
             new_teacher=Teacher.objects.create(email=email,password=hash_password,checkbox=check)
             new_teacher.save()
-            token=generate_jwt_token(new_teacher)
-            request.session['token']=token
+            return redirect('addshow')
+            
         else:
            return render(request,'form.html',{'message':'message'})
     return render(request,'form.html',{'message':''})
 
 def addshow(request):
-    token=request.session.get['token']
-    print(token)
-    if valid_token(token):
      if request.method=='POST':
         fo=UserRegistration(request.POST)
+        
         if fo.is_valid():
+            password=make_password(fo['password'])
             fo.save()
             fo=UserRegistration()
      else:
@@ -72,7 +72,7 @@ def addshow(request):
      regr=User.objects.all()
         
      return render(request,'addandshow.html', {'fobj':fo,'regs':regr} )
-
+@require_POST
 def delete_data(request,id):
     if request.method=='POST':
         obj=User.objects.get(pk=id)
