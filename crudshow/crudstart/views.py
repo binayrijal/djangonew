@@ -62,7 +62,8 @@ def addshow(request):
         fo=UserRegistration(request.POST)
         
         if fo.is_valid():
-            password=make_password(fo['password'])
+            hashed_password = make_password(fo.cleaned_data['password'])
+            fo = User(name=fo.cleaned_data['name'],email=fo.cleaned_data['email'], password=hashed_password)
             fo.save()
             fo=UserRegistration()
      else:
