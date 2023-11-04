@@ -2,7 +2,7 @@ from django import forms
 from items.models import Items
 
 
-INPUT_CLASSES='wt-full py-4 px-6 rounded-xl border'
+INPUT_CLASSES='w-full py-4 px-6 rounded-xl border'
 
 class NewItemForm(forms.ModelForm):
     class Meta:
@@ -19,7 +19,7 @@ class NewItemForm(forms.ModelForm):
             'description': forms.Textarea(attrs={
             'class': INPUT_CLASSES
             }),
-            'price': forms.NumberInput(attrs={
+            'price': forms.TextInput(attrs={
             'class': INPUT_CLASSES
             }),
             'image': forms.FileInput(attrs={
