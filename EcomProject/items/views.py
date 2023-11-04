@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Items,Category
-from items.forms import NewItemForm
+from items.forms import NewItemForm,EditItemForm
 from django.shortcuts import redirect
 
 def details(request,pk):
@@ -28,4 +28,38 @@ def new(request):
     return render(request,'items/form.html',{
       'form':form, 
       'title':'New item',
-    })
+ 
+   })
+
+
+@login_required
+def edit(request,pk):
+    items=get_object_or_404(Items,pk=pk,created_by=request.user)
+    if request.method=="POST":
+
+        form=EditItemForm(request.POST,request.FILES,instance=items)
+        if form.is_valid():
+            form.save()
+            return redirect('items:details', pk=pk)
+    else:
+
+        form=EditItemForm(instance=items)
+
+
+    return render(request,'items/form.html',{
+      'form':form, 
+      'title':'Edit item',
+ 
+   }) 
+    
+
+
+
+
+@login_required
+def delete(request,pk):
+
+    items=get_object_or_404(Items,pk=pk,created_by=request.user)
+    items.delete()
+    return redirect('dashboard:index')
+
