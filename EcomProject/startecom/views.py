@@ -15,8 +15,10 @@ def index(request):
 def contact(request):
     return render(request,'startecom/contact.html')
 
+
+
 def signup(request):
-    if request.method=="POST":
+    if request.method=='POST':
       form=SignupForm(request.POST)
       if form.is_valid():
           form.save()
