@@ -11,9 +11,12 @@ def items(request):
     category_id=request.GET.get('category', 0)
     category=Category.objects.all()
     search_item=Items.objects.filter(is_sold=False)
+
+    if category_id:
+        search_item=search_item.filter(Category_id=category_id)
     
     if query:
-        search_item=Items.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+        search_item=search_item.filter(Q(name__icontains=query) | Q(description__icontains=query))
 
     
     

@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from items.models import Items,Category
 from startecom.forms import SignupForm
+from django.contrib.auth import logout
 
 def index(request):
     items=Items.objects.filter(is_sold=False)[0:6] #it shows only five items matching
@@ -32,3 +33,7 @@ def signup(request):
                       'form':form,
                   }
                   )
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')

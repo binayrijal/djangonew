@@ -11,6 +11,8 @@
     </form>
     <hr class="my-6">
     <p class="font-semibold">categories</p>
+
+
     <ul>
         {%for category in category%}
         <li class="py-2 px-2 rounded-xl">
@@ -18,7 +20,12 @@
         </li>
         {%endfor%}
     </ul>
-
+    
+    <hr class="my-6">
+    <p class="font-semibold">Clear filter</p>
+    <ul>
+        <li><a href="{% url 'items:items' %}" class="mt-2 py-4 px-8 inline-block bg-yellow-500 text-lg rounded-xl hover:bg-yellow-300">Clear</a></li>
+    </ul>
 
 
  </div>
