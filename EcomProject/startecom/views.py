@@ -4,7 +4,7 @@ from startecom.forms import SignupForm
 from django.contrib.auth import logout
 
 def index(request):
-    items=Items.objects.filter(is_sold=False)[0:6] #it shows only five items matching
+    items=Items.objects.filter(is_sold=False)[0:6]   #it shows only five items matching
     category=Category.objects.all()
     return render(request,'startecom/index.html',
                   {
@@ -36,4 +36,4 @@ def signup(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('/')
+    return redirect('/login/')
