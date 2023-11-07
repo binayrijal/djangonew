@@ -2,8 +2,9 @@ from django.shortcuts import render,get_object_or_404,redirect
 from items.models import Items
 from .models import CommunicationMessage,Communication
 from .forms import CommunicationMessageForm
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+@login_required
 def new_communication(request,item_pk):
     item=get_object_or_404(Items,pk=item_pk)
 
@@ -37,3 +38,14 @@ def new_communication(request,item_pk):
         
         'form':form,
     })
+
+
+
+@login_required
+def inbox(request):
+   communications=Communication.objects.filter(members__in=[request.user.id])
+
+  
+   return render(request,'communication/inbox.html',{
+       'communications':communications,
+   })
